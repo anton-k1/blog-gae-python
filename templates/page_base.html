@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Blog v1.0</title>
+	<link rel="stylesheet" type="text/css" href="/css/blog.css">
+	<script type="text/javascript" src="/js/jquery-1.11.0.js"></script>
+	<script type="text/javascript" src="/js/script.js"></script>
+</head>
+<body>
+	<div class="outer-wrapper">
+		<div class="header">
+			<div class="header-content">
+				{% if username %}
+				<div class="add-post-container">
+					<a href="/_edit">
+						<img src="/img/plus.png">
+						<span class="login-link">Add Post</span>
+					</a>
+				</div>
+				{% endif %}
+				<div class="login-btn-block">
+				{% if username %}
+					<a href="#" class="login-link">{{username}}</a>
+					<span class="login-brackets">(</span>
+					<a href="/logout" class="login-link">logout</a>
+					<span class="login-brackets">)</span>
+				{% else %}
+					<a href="/login" class="login-link">Sing In</a>
+					<!--span class="login-delimeter">|</span>
+					<a href="/signup" class="login-link">Sing Up</a-->
+				{% endif %}
+				</div>
+			</div>
+		</div>
+
+		<div class="inner-wrapper">
+			<div class="main-content">
+			
+				{% block content %}
+				{% endblock %}
+
+			</div>
+		</div>
+	</div>
+
+	<div class="footer">
+		(c) All rights reserved. 2014
+	</div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{% extends "blog_base.html" %}
+{% block main_content %}
+
+{% import 'post_block.html' as post_block %}
+{{ post_block.render(post, False, username, comments) }}
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "blog_base.html" %}
+{% block main_content %}
+
+{% import 'post_block.html' as post_block %}
+{% for post in posts %}
+{{ post_block.render(post, True, username) }}
+{% endfor %}
+
+{% import 'pager.html' as pager %}
+{{ pager.render(is_next, page, pages_num) }}
+
+{% endblock %}

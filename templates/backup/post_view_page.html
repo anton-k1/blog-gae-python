@@ -1,0 +1,64 @@
+{% extends "blog_base.html" %}
+{% block main_content %}
+<div class="post block">
+	<div class="post-header">
+		<div class="post-title">
+			<h1>{{post.title}}</h1>
+			<div class="post-date">
+				{{post.created.strftime("%m-%d-%Y %H:%M:%S")}}
+			</div>
+		</div>
+		<div class="post-author">
+			by {{post.author_name}}
+		</div>
+	</div>
+	<p class="post-content-preview">
+		{{post.content}}
+	</p>
+	{% if short_version %}
+	<a href="#" class="read-more-link">Read more >></a>
+	<div class="comments-snippet">
+		<img src="../img/comment.png">
+		<a href="#">{{post.num_comments}} comments</a>
+	</div>
+	{% endif %}
+</div>
+
+{% if not short_version %}
+<div class="comments block">
+	<div class="comments-snippet">
+		<img src="../img/comment.png">
+		<a href="#">{{post.num_comments}} comments</a>
+	</div>
+	<div class="comment">
+		<div class="comment-header">
+			Peter on 01-02-2014
+		</div>
+		<p class="comment-text">
+			Cool stuff!!<br>
+			Bla bla...
+		</p>
+		<!--a href="#">Reply</a-->
+	</div>
+	<div class="comment">
+		<div class="comment-header">
+			Mary on 02-02-2014
+		</div>
+		<p class="comment-text">
+			Totally agree
+		</p>
+		<!--a href="#">Reply</a-->
+	</div>
+
+	<div class="new-comment">
+		<p>New comment</p>
+		<form method="post">
+			<input type="text" placeholder="Name">
+			<textarea placeholder="Comment"></textarea>
+			<input type="submit" value="Add comment" class="form-button">
+		</form>
+	</div>
+
+</div>
+{% endif %}
+{% endblock %}

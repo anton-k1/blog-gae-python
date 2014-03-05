@@ -1,0 +1,26 @@
+{% macro render(is_next, page, pages_num) -%}
+{% if is_next or page > 0 %}
+<div class="paging">
+	{% if page > 0 %}
+	<a href="/?p={{page-1}}">&lt; Prev</a>
+	{% else %}
+	<span>&lt; Prev</span>
+	{% endif %}
+	<span class="page_delimeter">|</span>
+	{% if is_next %}
+	<a href="/?p={{page+1}}">Next &gt;</a>
+	{% else %}
+	<span>Next &gt;</span>
+	{% endif %}
+	<br>
+	<!-- TODO if number of pages is big, a lot of numbers in pager - bad solution -->
+	{% for x in range(0, pages_num) %}
+	{% if x == page %}
+	<span class="cur_page">{{x+1}}</span>
+	{% else %}
+	<a href="/?p={{x}}">{{x+1}}</a>
+	{% endif %}
+	{% endfor %}
+</div>
+{% endif %}
+{%- endmacro %}

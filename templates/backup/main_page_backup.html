@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Blog v1.0</title>
+	<link rel="stylesheet" type="text/css" href="/css/blog.css">
+</head>
+<body>
+	<div class="outer-wrapper">
+		<div class="header">
+			<div class="header-content">
+				{% if username %}
+					<a href="#" class="login-link">{{username}}</a>
+					<span class="login-brackets">(</span>
+					<a href="/logout" class="login-link">logout</a>
+					<span class="login-brackets">)</span>
+				{% else %}
+					<a href="/login" class="login-link">Sing In</a>
+					<span class="login-delimeter">|</span>
+					<a href="/signup" class="login-link">Sing Up</a>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="inner-wrapper">
+			<div class="main-content">
+				
+				<div class="blog-header block">
+					<p class="blog-header-name"><a href="/">Blog name</a></p>
+					<p class="blog-header-desc">Blog description can be quite long</p>
+					<ul>
+						<li>Home</li>
+						<li>About</li>
+						<li>Contact</li>
+					</ul>
+				</div>
+
+				<div class="blog-content">
+					<div class="posts-container">
+						{% for post in posts %}
+							<div class="post block">
+								<div class="post-header">
+									<div class="post-title">
+										<h1>{{post.title}}</h1>
+										<div class="post-date">
+											{{post.created.strftime("%m-%d-%Y %H:%M:%S")}}
+										</div>
+									</div>
+									<div class="post-author">
+										by {{post.author_name}}
+									</div>
+								</div>
+								<p class="post-content-preview">
+									{{post.content}}
+								</p>
+								<a href="#" class="read-more-link">Read more >></a>
+								<div class="comments-snippet">
+									<img src="../img/comment.png">
+									<a href="#">{{post.num_comments}} comments</a>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+
+					<div class="side-panel-container">
+						<div class="side-panel block">
+							Some stuff
+						</div>
+					</div>
+
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer">
+		(c) All rights reserved. 2014
+	</div>
+</body>
+</html>

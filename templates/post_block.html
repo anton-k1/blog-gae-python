@@ -1,0 +1,89 @@
+{% macro render(post, short_version, username, comments) -%}
+<div class="post block">
+	<div class="post-header">
+		<div class="post-title">
+			{% if short_version %}
+				<a href="/{{post.key().id()}}"><h1>{{post.title}}</h1></a>
+			{% else %}
+				<h1>{{post.title}}</h1>
+			{% endif %}
+			<div class="post-date">
+				{{post.created.strftime("%m-%d-%Y %H:%M:%S")}}
+			</div>
+		</div>
+		<div class="post-author">
+			by {{post.author_name}}
+		</div>
+	</div>
+	{% if short_version %}
+	<div class="post-content-preview overflow_hidden">
+	{% else %}
+	<div class="post-content-preview">
+	{% endif %}	
+		{{post.content.replace('\n', '<br>') | safe}}
+	</div>
+	{% if short_version %}
+	<a href="/{{post.key().id()}}" class="read-more-link">Read more >></a>
+	<div class="comments-snippet">
+		<img src="/img/comment.png">
+		<a href="/{{post.key().id()}}/#comments">{{post.num_comments}} comments</a>
+	</div>
+	{% endif %}
+	{% if username %}
+	<div class="control-btns">
+		<div class="control-btn">
+			<a href="/_edit/{{post.key().id()}}">
+				<img src="/img/edit.png">
+				<span class="control-btn-text">Edit</span>
+			</a>
+		</div>
+		<div class="control-btn">
+			<a onclick="confirmDelete({{post.key().id()}})">
+				<img src="/img/delete.png">
+				<span class="control-btn-text">Delete</span>
+			</a>
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+{% if not short_version %}
+<div class="comments block" id="comments">
+	<div class="comments-snippet">
+		<img src="../img/comment.png">
+		<a href="#">{{post.num_comments}} comments</a>
+	</div>
+	{% for comment in comments %}
+	<div class="comment">
+		<div class="comment-header">
+			<b>{{comment.author_name}}</b> on {{comment.created.strftime("%m-%d-%Y %H:%M:%S")}}
+			{% if username %}
+			<div class="comment-controls">
+				<div class="control-btn">
+					<a onclick="confirmDeleteComment({{comment.key().id()}})">
+						<img src="/img/delete.png">
+						<span class="control-btn-text">Delete</span>
+					</a>
+				</div>
+			</div>
+			{% endif %}
+		</div>
+		<p class="comment-text">
+			{{comment.text}}
+		</p>
+		<!--a href="#">Reply</a-->
+	</div>
+	{% endfor %}
+
+	<div class="new-comment">
+		<p>New comment</p>
+		<form method="post" action="/_comment/{{post.key().id()}}" onsubmit="return validateNewCommentForm()">
+			<input type="text" name="name" id="new-comment-name" placeholder="Name">
+			<textarea placeholder="Comment" name="comment" id="new-comment-text"></textarea>
+			<input type="submit" value="Add comment" class="form-button">
+		</form>
+	</div>
+
+</div>
+{% endif %}
+{%- endmacro %}

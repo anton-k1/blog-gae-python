@@ -1,0 +1,55 @@
+{% extends "page_base.html" %}
+{% block content %}
+<div class="blog-header block">
+	<p class="blog-header-name"><a href="/">Web Development</a></p>
+	<p class="blog-header-desc">Learn about new stuff in web development</p>
+	<ul>
+		<li><a href="/">Home</a></li>
+		<li><a href="#">About</a></li>
+		<li><a href="#">Contact</a></li>
+	</ul>
+</div>
+
+<div class="blog-content">
+	<div class="posts-container">
+
+		{% block main_content %}
+		{% endblock %}
+
+	</div>
+
+	<div class="side-panel-container">
+
+		<div class="side-panel block">
+			<div class="post-header">
+				<div class="post-title">
+					<h1>Most popular</h1>
+				</div>
+			</div>
+			<div class="most-popular-content">
+				{% for mp_link in most_popular_links %}
+				<div class="mp-link">
+					<a href="/{{mp_link.key().id()}}">{{mp_link.title}}</a>
+					<p>{{mp_link.created.strftime("%m-%d-%Y")}}</p>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+
+		<div class="side-panel block">
+			<div class="post-header">
+				<div class="post-title">
+					<h1>Subscribe</h1>
+				</div>
+			</div>
+			<form method="post" action="/subscribe" onsubmit="return validateSubForm()">
+				<input type="text" placeholder="Name" name="sub_name" id="sub_name" class="subscribe-input-text">
+				<input type="text" placeholder="Email" name="sub_email" id="sub_email" class="subscribe-input-text">
+				<input type="submit" value="Subscribe to new posts" class="subscribe-input-submit">
+			</form>
+		</div>
+	</div>
+
+	<div class="clear"></div>
+</div>
+{% endblock %}
